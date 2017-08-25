@@ -6,4 +6,4 @@ stages:
   only:
     - tags
   script:
-    - make clean generate package deploy
+    - make clean compile package deploy
