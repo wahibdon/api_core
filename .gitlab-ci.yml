@@ -2,6 +2,7 @@ stages:
   -deploy
 
 "Generate jar and deploy to maven repo":
+  stage: deploy
   only:
     - tags
   script:
