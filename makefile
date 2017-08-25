@@ -20,7 +20,7 @@ package:
 	mvn package -B -Dbuildid=$$CI_BUILD_ID
 
 deploy:
-	mvn deploy:deploy-file -DgroupId=com.swifttrip -DartifactId=$(ARTIFACT) -Dversion=$$CI_PIPELINE_ID -DgeneratePom=true -Dpackaging=jar -DrepositoryId=nexus -Durl=http://build7.swifttrip.com:8081/nexus/content/repositories/thirdparty -Dfile=target/$(ARTIFACT)-$$CI_PIPELINE_ID.jar
+	mvn deploy:deploy-file -DgroupId=com.swifttrip -DartifactId=api-core -Dversion=$$CI_PIPELINE_ID -DgeneratePom=true -Dpackaging=jar -DrepositoryId=nexus -Durl=http://build7.swifttrip.com:8081/nexus/content/repositories/thirdparty -Dfile=target/api-core-$$CI_PIPELINE_ID.jar
 
 test:
 	# Run every file in the test directory like `Test*.java`
