@@ -1,3 +1,8 @@
+before_script:
+
+  # Replace a hardcoded version string with a Gitlab build ID
+  - sed -i "s/CI_PIPELINE_ID/$CI_PIPELINE_ID/g" pom.xml
+
 stages:
   - deploy
 

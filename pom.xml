@@ -9,7 +9,7 @@
 	<groupId>com.swifttrip</groupId>
 	<name>API Core</name>
 	<packaging>jar</packaging>
-	<version>$CI_PIPELINE_ID</version>
+	<version>CI_PIPELINE_ID</version>
 
 	<!-- Various plugin information and hard-coded variables -->
 	<properties>
@@ -103,7 +103,6 @@
 	<!-- Build information/configuration -->
 	<build>
 
-		<!-- project##CI_PIPELINE_ID.war -->
 		<finalName>${project.artifactId}-${project.version}</finalName>
 
 		<plugins>
