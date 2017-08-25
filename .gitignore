@@ -1,0 +1,9 @@
+# Editor files
+.idea
+*.iml
+
+# Vagrant virtual machines
+.vagrant
+
+# Application builds
+target

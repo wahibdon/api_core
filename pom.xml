@@ -1,0 +1,152 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<!-- The only supported POM version for Maven v2 and v3 -->
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Build artifact identification -->
+	<artifactId>api-core</artifactId>
+	<groupId>com.swifttrip</groupId>
+	<name>API Core</name>
+	<packaging>jar</packaging>
+	<version>$CI_PIPELINE_ID</version>
+
+	<!-- Various plugin information and hard-coded variables -->
+	<properties>
+		<encoding>UTF-8</encoding>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+		<sonar.host.url>http://build7.swifttrip.com</sonar.host.url>
+		<sonar.projectName>${project.name}</sonar.projectName>
+	</properties>
+
+	<!-- Where to pull Maven plugins and Java library dependencies from -->
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<url>http://build7.swifttrip.com:8081/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+
+	<!-- Java library dependencies for this project -->
+	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+
+		<!-- Needed for source compilation and runtime -->
+
+		<dependency>
+			<!-- Useful string operations -->
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+
+		<dependency>
+			<!-- JSON (de)serializer -->
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+
+		<dependency>
+			<!-- SQL convenience library -->
+			<groupId>org.jdbi</groupId>
+			<artifactId>jdbi</artifactId>
+			<version>2.78</version>
+		</dependency>
+
+		<dependency>
+			<!-- Database driver -->
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.41</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-dbcp</artifactId>
+			<version>7.0.79</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<!-- HTTP interactions -->
+			<groupId>com.mashape.unirest</groupId>
+			<artifactId>unirest-java</artifactId>
+			<version>1.4.8</version>
+		</dependency>
+
+		<dependency>
+			<!-- Web interface -->
+			<groupId>com.sparkjava</groupId>
+			<artifactId>spark-core</artifactId>
+			<version>2.5.5</version>
+			<exclusions>
+				<!-- We are running in Tomcat and use logback, so we have no need for Jetty or SLF4J transitively -->
+				<exclusion>
+					<artifactId>*</artifactId>
+					<groupId>*</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+	</dependencies>
+
+	<!-- Build information/configuration -->
+	<build>
+
+		<!-- project##CI_PIPELINE_ID.war -->
+		<finalName>${project.artifactId}##${project.version}</finalName>
+
+		<plugins>
+
+			<!-- How to compile source files -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.6.1</version>
+				<configuration>
+
+					<encoding>${encoding}</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+
+					<!-- True is false, and false is true! -->
+					<!-- https://issues.apache.org/jira/browse/MCOMPILER-209 -->
+					<!-- http://stackoverflow.com/questions/16963012/maven-compiler-recompile-all-files-instead-modified -->
+					<useIncrementalCompilation>false</useIncrementalCompilation>
+				</configuration>
+			</plugin>
+
+			<!-- Unit testing -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+			</plugin>
+
+			<!-- Integration testing -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.19.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

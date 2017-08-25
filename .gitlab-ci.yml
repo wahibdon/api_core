@@ -1,0 +1,8 @@
+stages:
+  -deploy
+
+"Generate jar and deploy to maven repo":
+  only:
+    - tags
+  script:
+     - make clean generate package deploy

@@ -1,0 +1,29 @@
+# This is the top-most editor config file in this project
+root = true
+
+[*]
+
+# Format of line endings
+# Possible values: lf, crlf, cr
+end_of_line = lf
+
+# File character encoding
+# Possible values: latin1, utf-8, utf-16be, utf-16le
+charset = utf-8
+
+# Whether whitespace should be trimmed
+# Possible values: true, false
+trim_trailing_whitespace = true
+
+# Whether newlines should end a file
+# Possible values: true, false
+insert_final_newline = true
+
+# How to handle indentations when the "tab" key is used
+# Possible values: space, tab
+indent_style = tab
+
+# Specific settings for YAML files
+[*.{yml,yaml}]
+indent_size = 2
+indent_style = space
