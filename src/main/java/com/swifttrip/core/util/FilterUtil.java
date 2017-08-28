@@ -49,7 +49,6 @@ public class FilterUtil {
 					}catch(IllegalAccessException iae){
 						LOGGER.error("unable to access field: {}", field.getName());
 					}
-					//keepJsonFields();
 				}
 			}catch(NoSuchFieldException iae){
 				LOGGER.error(" field - {} - not found", entry.getKey());

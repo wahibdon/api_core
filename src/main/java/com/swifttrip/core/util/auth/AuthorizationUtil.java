@@ -1,6 +1,5 @@
 package com.swifttrip.core.util.auth;
 
-import com.swifttrip.core.api.User;
 import com.swifttrip.core.dao.ConfigEndpointPermissionsDAO;
 import com.swifttrip.core.util.CoreConfigurationUtil;
 import com.swifttrip.core.util.DatabaseUtil;
@@ -21,9 +20,7 @@ import static spark.Spark.halt;
  */
 public class AuthorizationUtil {
 
-	private static Class clazz = AuthorizationUtil.class;
-	private static String className = clazz.getSimpleName();
-	private static final Logger LOGGER = LoggerFactory.getLogger(clazz);
+	private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationUtil.class);
 
 	private AuthorizationUtil(){
 		//Empty

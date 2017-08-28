@@ -1,4 +1,6 @@
-package com.swifttrip.core.api;
+package com.swifttrip.core.util.auth;
+
+import com.swifttrip.core.api.TokenData;
 
 /**
  * Created by Austin on 05-May-17.

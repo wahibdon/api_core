@@ -5,7 +5,6 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.swifttrip.core.api.TokenData;
-import com.swifttrip.core.api.User;
 import com.swifttrip.core.util.ConsulUtil;
 import com.swifttrip.core.util.CoreConfigurationUtil;
 import org.slf4j.Logger;
@@ -28,7 +27,7 @@ public class Token {
 	private static final Encoder encoder = Base64.getEncoder();
 	private static final String basicAuth = encoder.encodeToString((keycloakClient+":"+keycloakSecret).getBytes());
 
-	private String token;
+	final private String token;
 
 	/**
 	 * Constructor to set the user's access token on object creation.

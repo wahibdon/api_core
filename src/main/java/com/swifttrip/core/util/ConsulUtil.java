@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Collections;
 
 /**
@@ -36,7 +38,6 @@ public final class ConsulUtil {
 	public ConsulUtil() {
 		//EMPTY
 	}
-
 	public static void init(){
 		CONSUL_HOST = CoreConfigurationUtil.getConsulHost();
 		CONSUL_ID = CoreConfigurationUtil.getConsulId();
@@ -48,7 +49,12 @@ public final class ConsulUtil {
 	public static void register() {
 
 		final JSONObject serviceJson = new JSONObject();
-		serviceJson.put("ID", CONSUL_ID);
+		try {
+			serviceJson.put("ID", CONSUL_ID + InetAddress.getLocalHost().getHostName());
+		}catch(UnknownHostException uhe){
+			LOGGER.warn("Unable to get host", uhe);
+			serviceJson.put("ID", CONSUL_ID);
+		}
 		serviceJson.put("Name", CoreConfigurationUtil.getServiceName());
 		serviceJson.put("Tags", Collections.singletonList(CoreConfigurationUtil.getServiceVersion()));
 
